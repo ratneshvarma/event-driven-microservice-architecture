@@ -29,7 +29,7 @@
 3. `docker-compose -f common.yml -f kafka_cluster.yml up` or (`docker-compose up` to run all yml inside folder) (to start kafka docker services otherwise application failed to run)
 4. run main application (TwitterToKafkaServiceApplication.run())
 
-Note: If you can check each microservice logs using `docker logs <container-id> (-f option show continues logs)
+Note: If you can check each microservice logs using `docker logs <container-id>` (-f option show continues logs)
 	 
     				 
    
