@@ -18,7 +18,7 @@
 4. <b>kafka</b>: multi Module to hold model, admin and producer for kafa<br>
 	 - <b>kafka-module</b>: holds model to communicate/exchange messages, we are using apache avro for this which read the file from resource/avro  and create java class in java main folder<br>
 	 - <b>kafka-admin</b>: manages all activity related to kafka, example creating topics and retrying, addding checks etc<br>
-	 - <b>kafka-producer</b>: to produce kafka events<br>
+	 - <b>kafka-producer</b>: Using apache kafka, communicate to kafka through our application, it provides template to send messages, and annotation to consume kafka topic and some listner<br>
 5. <b>common-config</b>: common config to retry 
 	 
     				 
