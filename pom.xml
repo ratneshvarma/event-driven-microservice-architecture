@@ -82,5 +82,6 @@
 
   <modules>
     <module>twitter-to-kafka-service</module>
+    <module>app-config-data</module>
   </modules>
 </project>

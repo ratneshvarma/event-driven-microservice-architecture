@@ -1,6 +1,6 @@
 package com.microservices.demo.twitter.to.kafka.service.runner.impl;
 
-import com.microservices.demo.twitter.to.kafka.service.config.TwitterToKafkaServiceConfigData;
+import com.microservices.demo.config.TwitterToKafkaServiceConfigData;
 import com.microservices.demo.twitter.to.kafka.service.listener.TwitterKafkaStatusListener;
 import com.microservices.demo.twitter.to.kafka.service.runner.StreamRunner;
 import org.slf4j.Logger;
@@ -17,42 +17,41 @@ import java.util.Arrays;
 
 @Component
 @ConditionalOnProperty(name = "twitter-to-kafka-service.enable-mock-tweets", havingValue = "false", matchIfMissing = true)
-//enable real streaming if twitter-to-kafka-service.enable-mock-tweets = false
 public class TwitterKafkaStreamRunner implements StreamRunner {
 
-	private static final Logger LOG = LoggerFactory.getLogger(TwitterKafkaStreamRunner.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TwitterKafkaStreamRunner.class);
 
-	private final TwitterToKafkaServiceConfigData twitterToKafkaServiceConfigData;
+    private final TwitterToKafkaServiceConfigData twitterToKafkaServiceConfigData;
 
-	private final TwitterKafkaStatusListener twitterKafkaStatusListener;
+    private final TwitterKafkaStatusListener twitterKafkaStatusListener;
 
-	private TwitterStream twitterStream;
+    private TwitterStream twitterStream;
 
-	public TwitterKafkaStreamRunner(TwitterToKafkaServiceConfigData configData,
-			TwitterKafkaStatusListener statusListener) {
-		this.twitterToKafkaServiceConfigData = configData;
-		this.twitterKafkaStatusListener = statusListener;
-	}
+    public TwitterKafkaStreamRunner(TwitterToKafkaServiceConfigData configData,
+                                    TwitterKafkaStatusListener statusListener) {
+        this.twitterToKafkaServiceConfigData = configData;
+        this.twitterKafkaStatusListener = statusListener;
+    }
 
-	@Override
-	public void start() throws TwitterException {
-		twitterStream = new TwitterStreamFactory().getInstance();
-		twitterStream.addListener(twitterKafkaStatusListener);
-		addFilter();
-	}
+    @Override
+    public void start() throws TwitterException {
+        twitterStream = new TwitterStreamFactory().getInstance();
+        twitterStream.addListener(twitterKafkaStatusListener);
+        addFilter();
+    }
 
-	@PreDestroy
-	public void shutdown() {
-		if (twitterStream != null) {
-			LOG.info("Closing twitter stream!");
-			twitterStream.shutdown();
-		}
-	}
+    @PreDestroy
+    public void shutdown() {
+        if (twitterStream != null) {
+            LOG.info("Closing twitter stream!");
+            twitterStream.shutdown();
+        }
+    }
 
-	private void addFilter() {
-		String[] keywords = twitterToKafkaServiceConfigData.getTwitterKeywords().toArray(new String[0]);
-		FilterQuery filterQuery = new FilterQuery(keywords);
-		twitterStream.filter(filterQuery);
-		LOG.info("Started filtering twitter stream for keywords {}", Arrays.toString(keywords));
-	}
+    private void addFilter() {
+        String[] keywords = twitterToKafkaServiceConfigData.getTwitterKeywords().toArray(new String[0]);
+        FilterQuery filterQuery = new FilterQuery(keywords);
+        twitterStream.filter(filterQuery);
+        LOG.info("Started filtering twitter stream for keywords {}", Arrays.toString(keywords));
+    }
 }
