@@ -82,6 +82,9 @@ Note: If you can check each microservice logs using `docker logs <container-id>`
 "createdAt": "2020-01-01T23:00:50+0000",
 "text": "test multi word"
 }'<br>
+- search index:- <br> curl --location --request GET 'http://localhost:9200/twitter-index/_search'<br>
+- search by id:- <br> curl --location --request GET 'http://localhost:9200/twitter-index/_search?q=id:6546787733652269481'<br>
+-
 
 	 
     				 
