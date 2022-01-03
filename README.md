@@ -21,7 +21,7 @@
 	 - <b>kafka-admin</b>: manages all activity related to kafka, example creating topics and retrying, addding checks etc<br>
 	 - <b>kafka-producer</b>: Using apache kafka, communicate to kafka through our application, it provides template to send messages, and annotation to consume kafka topic and some listner<br>
 5. <b>common-config</b>: common config to retry <br>
-6. <b>config-server-repository</b>:Its git repo to have all config to make externalization (use `cd ./config-server-repository` then `git init` <br>
+6. <b>config-server-repository</b>:Its git repo to have all config to make externalization (use `cd ./config-server-repository` then `git init` <br> or use (https://github.com/ratneshvarma/config-server-repository if using remote repo)
 7. <b>config-server</b>:microservice to load all config-server-repository configuration <br>
 
 
@@ -33,6 +33,7 @@
 - run main application (TwitterToKafkaServiceApplication.run())
 
 Note: If you can check each microservice logs using `docker logs <container-id>` (-f option show continues logs)
+- export ENCRYPT_KEY='Demo_Pwd!2020'
 - mvn clean install -DskipTest( or run config-server first then mvn clean install as context load test will fail)
 - see config data http://localhost:8888/config-client/twitter_to_kafka
 - `cd ./docker-compose` then `chmod +x check-config-server-started.sh` (its entrypoint of twitter to kafka service)

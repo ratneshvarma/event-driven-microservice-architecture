@@ -5,6 +5,9 @@ spring:
     config:
       server:
         git:
-          uri: file://Users/ratneshvarma/Projects/my/event-driven-microservice-architecture/config-server-repository
-
- 
+          uri: https://github.com/ratneshvarma/config-server-repository #file:/Users/ratneshvarma/Projects/my/event-driven-microservice-architecture/config-server-repository
+          username: ratneshvarma
+          password: urpasshere****
+          default-label: main
+          clone-on-start: true
+    fail-fast: true
