@@ -1,7 +1,7 @@
 # event-driven-microservice-architecture
 1. <b>twitter-to-kafka-service</b>: stream mock/actual twitter data (check config for mock  enable-mock-tweets: true) and comunicate with kafka admin(to create topic) and kafka procedure(to send messages)
 2. <b>app-config-data</b>: common config module to read config values and provide across all modules using pom dependency
-3. <b>docker-compose</b>: use to create kafka doker(cluster/node(brocker) </br>
+3. <b>docker-compose</b>: use to create kafka, services, config elastic docker(cluster/node(brocker)(.env hidden file) </br>
   	 - move into docker-compose directory `cd docker-compose` </br>
 	 - run `docker-compose -f common.yml -f kafka_cluster.yml up` </br>
 	 - you can use kafkacat tool to monitor kafka using network option to reach host machine(in our case its localhost) `docker run -it --network=host confluentinc/cp-kafkacat kafkacat -L -b localhost:19092` (-L = list, -b = broker) which return topics, brokers and partitions details</br>
@@ -39,6 +39,49 @@ Note: If you can check each microservice logs using `docker logs <container-id>`
 - `cd ./docker-compose` then `chmod +x check-config-server-started.sh` (its entrypoint of twitter to kafka service)
 - `docker exec -it <container-id> /bin/bash` to go inside docker container
 - for dockerise issue, first run `mvn clean install -DskipTests` then `docker-compose up` as docker will only create once mvn command used
+- `docker-compose -f common.yml -f elastic_cluster.yml up` to run elasticsearch docker
+- elasticsearch `docker-compose -f common.yml -f elastic_cluster.yml up` to check elasticsearch `curl --location --request GET 'http://localhost:9200'` (increase docker memory up to 4 gb) 
+- create elaticsearch index:- <br>curl --location --request PUT 'http://localhost:9200/twitter-index' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "mappings": {
+        "properties": {
+            "userId": {
+                "type": "long"
+            },
+            "id": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "createdAt": {
+                "type": "date",
+		"format": "yyyy-MM-dd'\''T'\''HH:mm:ssZZ"
+            },
+            "text": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            }
+        }
+    }
+}'<br>
+- create document in index:- <br> curl --location --request POST 'http://localhost:9200/twitter-index/_doc/1' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"userId": "1",
+"id": "1",
+"createdAt": "2020-01-01T23:00:50+0000",
+"text": "test multi word"
+}'<br>
 
 	 
     				 
