@@ -35,6 +35,10 @@
 Note: If you can check each microservice logs using `docker logs <container-id>` (-f option show continues logs)
 - mvn clean install -DskipTest( or run config-server first then mvn clean install as context load test will fail)
 - see config data http://localhost:8888/config-client/twitter_to_kafka
+- `cd ./docker-compose` then `chmod +x check-config-server-started.sh` (its entrypoint of twitter to kafka service)
+- `docker exec -it <container-id> /bin/bash` to go inside docker container
+- for dockerise issue, first run `mvn clean install -DskipTests` then `docker-compose up` as docker will only create once mvn command used
+
 	 
     				 
    
