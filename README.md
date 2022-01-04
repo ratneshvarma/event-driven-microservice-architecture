@@ -84,7 +84,73 @@ Note: If you can check each microservice logs using `docker logs <container-id>`
 }'<br>
 - search index:- <br> curl --location --request GET 'http://localhost:9200/twitter-index/_search'<br>
 - search by id:- <br> curl --location --request GET 'http://localhost:9200/twitter-index/_search?q=id:6546787733652269481'<br>
--
+- query:-<br> curl --location --request POST 'http://localhost:9200/twitter-index/_search' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "query": {
+    "term": {
+       "text": "test"
+      }
+   }
+}'<br>
+- curl --location --request POST 'http://localhost:9200/twitter-index/_search' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "query": {
+     "match": {
+       "text": "test multi word"
+      }
+   }
+}' <br>
+- curl --location --request POST 'http://localhost:9200/twitter-index/_search' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "query": {
+     "term": {
+       "text": "test multi word"                           
+      }
+   }
+}' <br>
+- curl --location --request POST 'http://localhost:9200/twitter-index/_search' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "query": {
+     "wildcard": {
+       "text": "te*"                          
+      }
+   }
+}' <br>
+- curl --location --request POST 'http://localhost:9200/twitter-index/_search' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "query": {
+    "query_string": {
+       "query": "text:te*"                          
+      }
+   }
+}' <br>
+- curl --location --request POST 'http://localhost:9200/twitter-index/_search' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "from": 0,
+  "size": 20,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "text": "test"
+          }
+        },
+        {
+          "match": {
+            "text": "word"
+          }
+        }
+      ]
+    }
+  }
+}' <br>
 
 	 
     				 
