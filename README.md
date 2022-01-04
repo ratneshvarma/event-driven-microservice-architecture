@@ -151,6 +151,10 @@ Note: If you can check each microservice logs using `docker logs <container-id>`
     }
   }
 }' <br>
+- <b>Elastic query service</b>:- `curl --location --request GET 'http://localhost:8183/elastic-query-service/documents'`<br> 
+get byId  `curl --location --request GET 'http://localhost:8183/elastic-query-service/documents/6369722700539622078'` <br> version2- <br> curl --location --request GET 'http://localhost:8183/elastic-query-service/documents/6369722700539622078' \
+--header 'Content-Type: application/vnd.api.v2+json'
+- <b>swagger</b>: `http://localhost:8183/elastic-query-service/swagger-ui.html`
 
 	 
     				 
