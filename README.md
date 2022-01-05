@@ -22,7 +22,20 @@
 	 - <b>kafka-producer</b>: Using apache kafka, communicate to kafka through our application, it provides template to send messages, and annotation to consume kafka topic and some listner<br>
 5. <b>common-config</b>: common config to retry <br>
 6. <b>config-server-repository</b>:Its git repo to have all config to make externalization (use `cd ./config-server-repository` then `git init` <br> or use (https://github.com/ratneshvarma/config-server-repository if using remote repo)
-7. <b>config-server</b>:microservice to load all config-server-repository configuration <br>
+7. <b>config-server</b>: microservice to load all config-server-repository configuration <br>
+8. <b>common-config</b>: common config across services
+9. <b>common-util</b>: common utility across services
+10. <b>common-util</b>: common utility across services
+11. <b>elastic</b>: contains elastic sub module<br>
+	- <b>elastic-config</b>: holds elastic config<br>
+	- <b>elastic-index-client</b>: create and manages elastic index<br>
+	- <b>elastic-model</b>: holds elastic models<br>
+	- <b>elastic-query-client</b>: holds client config to perform operation on elastic(two implementation check @Primary)<br>
+
+12. <b>elastic-query-service</b>: elastic search query implementation
+13. <b>kafka-to-elastic-service</b>: send elastic data to kafka service
+13. <b>elastic-query-web-client</b>: UI(thymleaf) to search test `http://localhost:8184/elastic-query-web-client`
+
 
 
 ## How to run
