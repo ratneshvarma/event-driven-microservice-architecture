@@ -34,7 +34,13 @@
 
 12. <b>elastic-query-service</b>: elastic search query implementation
 13. <b>kafka-to-elastic-service</b>: send elastic data to kafka service
-13. <b>elastic-query-web-client</b>: UI(thymleaf) to search test `http://localhost:8184/elastic-query-web-client`
+14. <b>elastic-query-web-client</b>: UI(thymleaf) to search test `http://localhost:8184/elastic-query-web-client`
+15. <b>elastic-query-service-common</b>: Hold reactive common 
+16. <b>elastic-query-web-client-common</b>:  hold elastic client
+17. <b>reactive-elastic-query-service</b>: hold reactive service 
+18. <b>reactive-elastic-query-web-client</b>: hold reactive query controller <b> to run:</b> Run Config server, then `docker-compose -f common.yml -f elastic_cluster.yml up` then reactive-elastic-query-service then finally reactive-elastic-query-web-client and search text like "java" on  `http://localhost:8184/reactive-elastic-query-web-client/query-by-text` 
+
+
 
 
 
