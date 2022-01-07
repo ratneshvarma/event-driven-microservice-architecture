@@ -40,6 +40,68 @@
 17. <b>reactive-elastic-query-service</b>: hold reactive service 
 18. <b>reactive-elastic-query-web-client</b>: hold reactive query controller <b> to run:</b> Run Config server, then `docker-compose -f common.yml -f elastic_cluster.yml up` then reactive-elastic-query-service then finally reactive-elastic-query-web-client and search text like "java" on  `http://localhost:8184/reactive-elastic-query-web-client/query-by-text` 
 
+# keycloak setup:
+- add keycloak_authorization_server.yml with admin/admin user and password
+- create postgress user: <b>keycloak</b> and password: <b>keycloak</b> with admin privilege and create database <b>keycloak</b>(see config in keycloak_authorization_server.yml file) 
+- run `docker-compose keycloak_authorization_server.yml up`
+- `http://localhost:8081/auth/` then click administration console -> put admin/admin user/pass
+- `http://localhost:8081/auth/admin/master/console/#/create/realm` create realm name: <b>microservices-realm</b> (click master left top corner to add realm)
+- <b>microservices-realm</b>: <br>
+	 - Roles -> add Role -> add 3 roles app_admin_role, app_user_role and app_super_user_role <br>
+	 - Groups -> new -> add 3 group app_admin_group, app_user_group, app_super_user_group corresponding to Role<br>
+	 - Now click on each group created above and assign role to corresponding group -> Role Mapping: app_super_user_group - app_super_user_role, app_admin_group - app_admin_role and app_user_group - app_user_role <br>
+	 - Users -> add user -> add 3 user app-user, admin-user and app-super-user with password(Credentials tab): <b>perm</b> <br>
+	 - Now click each user to map(join) corresponding group, Users -> Groups - join corresponding group, app-user- app_user_group, app_admin_group and app-super-user - group-app_super_user_role <br>
+	 - Clients -> add Client -> Client ID=elastic-query-web-client and Client Protocol=openid-connect -> create -> setting -> Access Type=creadentials ,Enabled=ON, Standard Flow Enabled=ON, Direct Access Grants Enabled=ON,Service Accounts Enabled=ON Valid Redirect URIs: http://localhost:8184/elastic-query-web-client/login/oauth2/code/keycloak and http://localhost:8184/elastic-query-web-client, Base URL= http://localhost:8184/elastic-query-web-client, Web Origins = http://localhost:8184, we will use 74b63390-7a43-4c82-a400-6eb48490ab5b (credential tab) for configuration in code then Mappers tab -> create -> Name =microservices-groups, Mapper Type= Group Membership,Token Claim Name= groups and Full group path = OFF -> save, then create another mapper -> Name= elastic-query-service, Mapper Type = Audience, Included Custom Audience=elastic-query-service -> save, then create another ->
+	 Name = client-id, Mapper Type=User Session Note, User Session Note=clientID, Token Claim Name=clientID, Claim JSON TypeString ->save, then create another ->
+	 Name = client-ip, Mapper Type=User Session Note, User Session Note=clientAddress, Token Claim Name=clientAddress, Claim JSON TypeString ->save <br>
+	 - ClientScopes -> create -> Name = app-user-role, Protocol-openid-connect -> save then Scope tab on same page -> assign role app-user-role <br>
+	  - ClientScopes -> create -> Name = app-admin-role, Protocol-openid-connect -> save then Scope tab on same page -> assign role app-admin-role <br>
+	  - ClientScopes -> create -> Name = app_super_user_role, Protocol-openid-connect -> save then Scope tab on same page -> assign role app_super_user_role <br>
+	  - Clients->elastic-query-web-client-> Client Scopes tab -> Default Client Scopes - select all scopes(app_super_user_role,app-admin-role and app-user-role) and assign <br> <br>
+	  
+- Clients -> add Client -> Client ID=elastic-query-web-client-2 (for signle sign up) and Client Protocol=openid-connect -> create -> setting -> Access Type=creadentials ,Enabled=ON, Standard Flow Enabled=ON, Direct Access Grants Enabled=ON,Service Accounts Enabled=ON Valid Redirect URIs: http://localhost:8185/elastic-query-web-client/login/oauth2/code/keycloak and http://localhost:8185/elastic-query-web-client, Base URL= http://localhost:8185/elastic-query-web-client, Web Origins = http://localhost:8185,
+ then Mappers tab -> create -> Name =microservices-groups, Mapper Type= Group Membership,Token Claim Name= groups and Full group path = OFF -> save, 
+then create another mapper -> Name= elastic-query-service, Mapper Type = Audience, Included Custom Audience=elastic-query-service -> save, 
+then create another ->
+	 Name = client-id, Mapper Type=User Session Note, User Session Note=clientID, Token Claim Name=clientID, Claim JSON TypeString ->save, 
+then create another ->
+	 Name = client-host, Mapper Type=User Session Note, User Session Note=clientHost, Token Claim Name=clientHost, Claim JSON TypeString ->save <br>
+then create another ->
+	 Name = client-ip, Mapper Type=User Session Note, User Session Note=clientAddress, Token Claim Name=clientAddress, Claim JSON TypeString ->save <br>
+	then Scope tab on same page -> assign role app_super_user_role <br>
+	  - Clients->elastic-query-web-client-> Client Scopes tab -> Default Client Scopes - select all scopes(app_super_user_role,app-admin-role and app-user-role) and assign <br> <br>
+	  
+- Clients -> add Client -> Client ID=elastic-query-service and Client Protocol=openid-connect -> create -> setting -> Access Type=creadentials ,Enabled=ON, Standard Flow Enabled=ON, Direct Access Grants Enabled=ON,Service Accounts Enabled=ON Valid Redirect URIs: http://localhost:8183/elastic-query-service/login/oauth2/code/keycloak and http://localhost:8183/elastic-query-service, Base URL= http://localhost:8183/elastic-query-service, Web Origins = http://localhost:8183,
+ then Mappers tab -> create -> Name =microservices-groups, Mapper Type= Group Membership,Token Claim Name= groups and Full group path = OFF -> save, 
+then create another mapper -> Name= kafka-streams-service, Mapper Type = Audience, Included Custom Audience=kafka-streams-service -> save, 
+hen create another mapper -> Name= analytics-service, Mapper Type = Audience, Included Custom Audience=analytics-service -> save, 
+then create another ->
+	 Name = client-id, Mapper Type=User Session Note, User Session Note=clientID, Token Claim Name=clientID, Claim JSON TypeString ->save, 
+then create another ->
+	 Name = client-host, Mapper Type=User Session Note, User Session Note=clientHost, Token Claim Name=clientHost, Claim JSON TypeString ->save <br>
+then create another ->
+	 Name = client-ip, Mapper Type=User Session Note, User Session Note=clientAddress, Token Claim Name=clientAddress, Claim JSON TypeString ->save <br>
+	then Scope tab on same page -> assign role app_super_user_role <br>
+	  - Clients->elastic-query-web-client-> Client Scopes tab -> Default Client Scopes - select all scopes(app_super_user_role,app-admin-role and app-user-role) and assign <br>
+	  - Finally can see config `http://localhost:8081/auth/realms/microservices-realm/.well-known/openid-configuration`<br>
+	  - http://localhost:8184/elastic-query-web-client <br> to search text
+
+
+Note: when dockerize please replace all Clients urls with servicename instead on localhost as in container localhost will not work-<br>
+http://elastic-query-web-client-1:8184/elastic-query-web-client/login/oauth2/code/keycloak<br>
+http://elastic-query-web-client-2:8185/elastic-query-web-client/login/oauth2/code/keycloak<br>
+http://elastic-query-service-1:8183/elastic-query-service/login/oauth2/code/keycloak<br>
+also change keycloak port from 8081 to 9091 as 8081 is used by kafka steam service in docker<br>
+
+and `mvn clean install -DskipTests`
+then can `http://elastic-query-web-client-1:8184/elastic-query-web-client` provide login user name and pass eg. app-user/perm or admin-user/perm or app-super-user/perm then you can seach text based on authentication 
+	  
+	  
+	  
+	 
+	 
+
 
 
 
@@ -174,6 +236,12 @@ Note: If you can check each microservice logs using `docker logs <container-id>`
 get byId  `curl --location --request GET 'http://localhost:8183/elastic-query-service/documents/6369722700539622078'` <br> version2- <br> curl --location --request GET 'http://localhost:8183/elastic-query-service/documents/6369722700539622078' \
 --header 'Content-Type: application/vnd.api.v2+json'
 - <b>swagger</b>: `http://localhost:8183/elastic-query-service/swagger-ui.html`
+
+
+
+http://elastic-query-web-client-1:8184/elastic-query-web-client/login/oauth2/code/keycloak
+http://elastic-query-web-client-2:8185/elastic-query-web-client/login/oauth2/code/keycloak
+http://elastic-query-service-1:8183elastic-query-service/login/oauth2/code/keycloak
 
 	 
     				 
