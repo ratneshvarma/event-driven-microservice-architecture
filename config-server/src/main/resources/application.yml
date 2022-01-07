@@ -5,6 +5,3 @@ logging:
   level:
     ROOT: INFO
     org.spring.framework.cloud.config: DEBUG
-management.endpoint.health.show-components: always
-management.endpoint.health.show-details: always
-management.endpoints.health.sensitive: false

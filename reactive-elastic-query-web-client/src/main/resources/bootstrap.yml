@@ -7,3 +7,5 @@ spring:
     config:
       name: reactive-elastic-query-web-client,config-client
       uri: http://localhost:8888
+      username: user
+      password: user

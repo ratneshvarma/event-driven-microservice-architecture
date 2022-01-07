@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,11 +18,11 @@ public class ElasticQueryServiceErrorHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(ElasticQueryServiceErrorHandler.class);
 
-//    @ExceptionHandler(AccessDeniedException.class)
-//    public ResponseEntity<String> handle(AccessDeniedException e) {
-//        LOG.error("Access denied exception!", e);
-//        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not authorized to access this resource!");
-//    }
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<String> handle(AccessDeniedException e) {
+        LOG.error("Access denied exception!", e);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not authorized to access this resource!");
+    }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handle(IllegalArgumentException e) {

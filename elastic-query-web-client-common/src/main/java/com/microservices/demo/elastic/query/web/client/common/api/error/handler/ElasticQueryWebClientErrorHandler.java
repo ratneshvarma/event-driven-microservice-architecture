@@ -5,7 +5,7 @@ import com.microservices.demo.elastic.query.web.client.common.model.ElasticQuery
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-//import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -20,13 +20,13 @@ public class ElasticQueryWebClientErrorHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(ElasticQueryWebClientErrorHandler.class);
 
-//    @ExceptionHandler(AccessDeniedException.class)
-//    public String handle(AccessDeniedException e, Model model) {
-//        LOG.error("Access denied exception!");
-//        model.addAttribute("error", HttpStatus.UNAUTHORIZED.getReasonPhrase());
-//        model.addAttribute("error_description, You are not authorized to access this resource!");
-//        return "error";
-//    }
+    @ExceptionHandler(AccessDeniedException.class)
+    public String handle(AccessDeniedException e, Model model) {
+        LOG.error("Access denied exception!");
+        model.addAttribute("error", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+        model.addAttribute("error_description, You are not authorized to access this resource!");
+        return "error";
+    }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public String handle(IllegalArgumentException e, Model model) {

@@ -52,7 +52,7 @@
 - run main application (TwitterToKafkaServiceApplication.run())
 
 Note: If you can check each microservice logs using `docker logs <container-id>` (-f option show continues logs)
-- export ENCRYPT_KEY='Demo_Pwd!2020'
+- `export ENCRYPT_KEY='Demo_Pwd!2020'`
 - mvn clean install -DskipTest( or run config-server first then mvn clean install as context load test will fail)
 - see config data http://localhost:8888/config-client/twitter_to_kafka
 - `cd ./docker-compose` then `chmod +x check-config-server-started.sh` (its entrypoint of twitter to kafka service)

@@ -12,7 +12,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-//import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -51,7 +51,7 @@ public class TwitterElasticQueryWebClient implements ElasticQueryWebClient {
                 .retrieve()
                 .onStatus(
                         httpStatus -> httpStatus.equals(HttpStatus.UNAUTHORIZED),
-                        clientResponse -> Mono.just(new Exception("Not authenticated!")))
+                        clientResponse -> Mono.just(new BadCredentialsException("Not authenticated!")))
                 .onStatus(
                         HttpStatus::is4xxClientError,
                         cr -> Mono.just(new ElasticQueryWebClientException(cr.statusCode().getReasonPhrase())))
