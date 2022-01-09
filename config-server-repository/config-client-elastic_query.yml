@@ -11,19 +11,23 @@ elastic-query-service:
     query-type: 'ANALYTICS_DATABASE'
   query-from-kafka-state-store:
     method: GET
-    uri: "http://localhost:8187/kafka-streams-service/get-word-count-by-word/{word}"
+    uri: "http://gateway-service/kafka-streams-service/get-word-count-by-word/{word}"
     accept: ${elastic-query-service.webclient.accept-type}
   query-from-analytics-database:
     method: GET
-    uri: "http://localhost:8187/analytics-service/get-word-count-by-word/{word}"
+    uri: "http://gateway-service/analytics-service/get-word-count-by-word/{word}"
     accept: ${elastic-query-service.webclient.accept-type}
 
 server:
   port: 8183
   servlet:
-    context-path: /elastic-query-service
+    context-path: /
 
 spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
   security:
     oauth2:
       resourceserver:

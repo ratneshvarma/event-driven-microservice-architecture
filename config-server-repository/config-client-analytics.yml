@@ -1,13 +1,17 @@
 server:
   port: 8188
   servlet:
-    context-path: /analytics-service
+    context-path: /
 
 analytics-service:
   version: v2
   custom-audience: analytics-service
 
 spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
   security:
     oauth2:
       resourceserver:
