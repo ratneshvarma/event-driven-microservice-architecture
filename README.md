@@ -42,7 +42,8 @@
 19. <b>kafka-streams-service</b>: hold kafka service layer, `mvn clean install -DskipTests` then `docker-compose up` `http://elastic-query-web-client-1:8184/elastic-query-web-client` 
 20. <b>analytics-service</b>: stream data from database to a new kafka topic
 21. <b>discovery-service</b>: service discovery implementation
-22. <b>gateway-service</b>: gateway and circuit breaker implementation <br>`docker-compose up` to see Grafana monitor `http://localhost:3000` check docker for user/pass (admin/admin) and for Prometheus `http://localhost:9090/`
+22. <b>gateway-service</b>: gateway and circuit breaker implementation <br>`docker-compose up` to see Grafana monitor `http://localhost:3000` check docker for user/pass (admin/admin) and for Prometheus `http://localhost:9090/` <br>
+and to run trace Zipkin: `http://localhost:9411/zipkin`
 
 # keycloak setup:
 - add keycloak_authorization_server.yml with admin/admin user and password
