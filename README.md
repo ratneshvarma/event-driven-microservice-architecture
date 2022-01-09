@@ -60,7 +60,7 @@
 	  - ClientScopes -> create -> Name = app_super_user_role, Protocol-openid-connect -> save then Scope tab on same page -> assign role app_super_user_role <br>
 	  - Clients->elastic-query-web-client-> Client Scopes tab -> Default Client Scopes - select all scopes(app_super_user_role,app-admin-role and app-user-role) and assign <br> <br>
 	  
-- Clients -> add Client -> Client ID=elastic-query-web-client-2 (for signle sign up) and Client Protocol=openid-connect -> create -> setting -> Access Type=creadentials ,Enabled=ON, Standard Flow Enabled=ON, Direct Access Grants Enabled=ON,Service Accounts Enabled=ON Valid Redirect URIs: http://localhost:8185/elastic-query-web-client/login/oauth2/code/keycloak and http://localhost:8185/elastic-query-web-client, Base URL= http://localhost:8185/elastic-query-web-client, Web Origins = http://localhost:8185,
+- Clients -> add Client -> Client ID=elastic-query-web-client-2 (for signle sign up) and Client Protocol=openid-connect -> create -> setting -> Access Type=creadentials ,Enabled=ON, Standard Flow Enabled=ON, Direct Access Grants Enabled=ON,Service Accounts Enabled=ON Valid Redirect URIs: http://localhost:8185/elastic-query-web-client/login/oauth2/code/keycloak and http://localhost:8185/elastic-query-web-client, Base URL= http://localhost:8185/elastic-query-web-client, Web Origins = http://localhost:8185 (creadential 21bfb1af-36a0-42f9-a261-90cc19107f17) ,
  then Mappers tab -> create -> Name =microservices-groups, Mapper Type= Group Membership,Token Claim Name= groups and Full group path = OFF -> save, 
 then create another mapper -> Name= elastic-query-service, Mapper Type = Audience, Included Custom Audience=elastic-query-service -> save, 
 then create another ->
@@ -72,7 +72,7 @@ then create another ->
 	then Scope tab on same page -> assign role app_super_user_role <br>
 	  - Clients->elastic-query-web-client-> Client Scopes tab -> Default Client Scopes - select all scopes(app_super_user_role,app-admin-role and app-user-role) and assign <br> <br>
 	  
-- Clients -> add Client -> Client ID=elastic-query-service and Client Protocol=openid-connect -> create -> setting -> Access Type=creadentials ,Enabled=ON, Standard Flow Enabled=ON, Direct Access Grants Enabled=ON,Service Accounts Enabled=ON Valid Redirect URIs: http://localhost:8183/elastic-query-service/login/oauth2/code/keycloak and http://localhost:8183/elastic-query-service, Base URL= http://localhost:8183/elastic-query-service, Web Origins = http://localhost:8183,
+- Clients -> add Client -> Client ID=elastic-query-service and Client Protocol=openid-connect -> create -> setting -> Access Type=creadentials ,Enabled=ON, Standard Flow Enabled=ON, Direct Access Grants Enabled=ON,Service Accounts Enabled=ON Valid Redirect URIs: http://localhost:8183/elastic-query-service/login/oauth2/code/keycloak and http://localhost:8183/elastic-query-service, Base URL= http://localhost:8183/elastic-query-service, Web Origins = http://localhost:8183 (credential d25b101b-30fb-44b8-87a9-bff4a0bf46f7),
  then Mappers tab -> create -> Name =microservices-groups, Mapper Type= Group Membership,Token Claim Name= groups and Full group path = OFF -> save, 
 then create another mapper -> Name= kafka-streams-service, Mapper Type = Audience, Included Custom Audience=kafka-streams-service -> save, 
 hen create another mapper -> Name= analytics-service, Mapper Type = Audience, Included Custom Audience=analytics-service -> save, 
