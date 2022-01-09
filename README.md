@@ -39,6 +39,8 @@
 16. <b>elastic-query-web-client-common</b>:  hold elastic client
 17. <b>reactive-elastic-query-service</b>: hold reactive service 
 18. <b>reactive-elastic-query-web-client</b>: hold reactive query controller <b> to run:</b> Run Config server, then `docker-compose -f common.yml -f elastic_cluster.yml up` then reactive-elastic-query-service then finally reactive-elastic-query-web-client and search text like "java" on  `http://localhost:8184/reactive-elastic-query-web-client/query-by-text` 
+19. <b>kafka-streams-service</b>: hold kafka service layer, `mvn clean install -DskipTests` then `docker-compose up` `http://elastic-query-web-client-1:8184/elastic-query-web-client` 
+20. <b>analytics-service</b>: stream data from database to a new kafka topic
 
 # keycloak setup:
 - add keycloak_authorization_server.yml with admin/admin user and password
