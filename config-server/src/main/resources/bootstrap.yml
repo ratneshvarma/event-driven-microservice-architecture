@@ -15,3 +15,6 @@ spring:
     user:
       name: user
       password: user
+
+log:
+  app-name: config-server

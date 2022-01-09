@@ -9,3 +9,6 @@ spring:
       uri: http://localhost:8888
       username: user
       password: user
+
+log:
+  app-name: twitter-to-kafka-service
